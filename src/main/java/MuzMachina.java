@@ -104,7 +104,7 @@ public class MuzMachina implements MetaEventListener {
             int klucz = instrumenty[i]; //określa jaki instument jest używany
 
             for (int j = 0; j < 16; j++) {
-                JCheckBox jc = (JCheckBox) listaPolWyboru.get(j + (16 * i));
+                JCheckBox jc = (JCheckBox) listaPolWyboru.get(j + (16 * i)); //jesli pole wyboru w danym takcie jest zaznaczone to instrumrnt gra, jesli nie to zapisz 0
                 if (jc.isSelected()) {
                     listaSciezki[j] = klucz;
                 } else {
@@ -116,11 +116,11 @@ public class MuzMachina implements MetaEventListener {
             sciezka.add(tworzZdarzenie(176, 1, 127, 0, 16));
         }
 
-        sciezka.add(tworzZdarzenie(192, 9, 1, 0, 15));
+        sciezka.add(tworzZdarzenie(192, 9, 1, 0, 15)); //nich w ostatnuim takie zawsze będzie jakies zdarzenie
         try {
             sekwenser.setSequence(sekwencja);
-            sekwenser.setLoopCount(sekwenser.LOOP_CONTINUOUSLY);
-            sekwenser.start();
+            sekwenser.setLoopCount(sekwenser.LOOP_CONTINUOUSLY); //odtwarzaj w nieskonczonosc
+            sekwenser.start(); //zacznij grać
             sekwenser.setTempoInBPM(120);
         } catch(Exception e) {e.printStackTrace();}
     }
@@ -152,7 +152,7 @@ public class MuzMachina implements MetaEventListener {
     }
 
 
-    public void utworzSciezke(int[] lista) {
+    public void utworzSciezke(int[] lista) { //metoda otrzymuje tablice dla instrumentu i tam gdzie znajdzie wartość inną niż 0 tworzy zdarzenie dla tego instrumentu (i dodajemy je do ścieżki)
         for (int i = 0; i < 16; i++) {
             int klucz = lista[i];
             if (klucz != 0) {
